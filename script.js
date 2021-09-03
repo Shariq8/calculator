@@ -1,4 +1,4 @@
-var input1, input2, operator, ans;
+var input1, input2, operator, clearFlag = false;
 
 const add = function(a,b){return a + b;}
 
@@ -28,20 +28,28 @@ const topScr = document.querySelector('#input'); //Top part
 const botScr = document.querySelector('#output'); //Bottom part
 
 btns.forEach(button => button.addEventListener('click', function() {
+    if(clearFlag){
+        clear();
+        clearFlag = false
+    } 
     botScr.innerHTML += button.innerHTML;
 })); //Adds the value to the bottom screen
 
 const del = document.querySelector('#delete'); //Deletes the most recent number
 del.addEventListener('click', function(){
-    var str = output.innerHTML;
+    var str = botScr.innerHTML;
     botScr.innerHTML = str.slice(0,-1);
 });
 
 const ac = document.querySelector('#clear'); //Clears the text on screen
 ac.addEventListener('click', function(){
+    clear();
+})
+
+function clear(){
     botScr.innerHTML = topScr.innerHTML = "";
     input1 = undefined, input2 = undefined, operator = undefined;
-})
+}
 
 const op = document.querySelectorAll('.op');
 op.forEach(operate => operate.addEventListener('click', function(){
@@ -50,9 +58,13 @@ op.forEach(operate => operate.addEventListener('click', function(){
 
 function operations(val, opCode, opVal){ //Takes the number, the id value and the sign value for scr
     if(opVal == '.'){
+        if(botScr.innerHTML.includes('.')) return;
         botScr.innerHTML += ".";
-    } 
-    else if(input1 == undefined){ //Means there needs to be input1 and op (initial)
+    }else if(opVal == '(-)'){
+        var str = "-"
+        botScr.innerHTML = str.concat(botScr.innerHTML);
+    }else if(input1 == undefined){ //Means there needs to be input1 and op (initial)
+        if(opVal == '=') return;
         input1 = val;
         operator = opCode;
         topScr.innerHTML = input1 + ' ' + opVal;
@@ -62,17 +74,28 @@ function operations(val, opCode, opVal){ //Takes the number, the id value and th
         topScr.innerHTML = input1 + ' ' + opVal;
         botScr.innerHTML = '';
     }else if(input2 == undefined){ //Means there's an input1 but not input2 
-        input2 = val; //Calcuate
-        input1 = operate(operator, parseFloat(input1),parseFloat(input2)).toFixed(5); //Makes input1 the new value
-        if(opVal == '='){
-            topScr.innerHTML += ' ' + input2 + ' =' 
-            botScr.innerHTML = input1;
-            input2 = operator = undefined;
-        }else{
-            topScr.innerHTML = input1 + ' ' + opVal;
-            botScr.innerHTML = '';
-            input2 = undefined;
+        if(val == '' && botScr.innerHTML === ''){
             operator = opCode;
+            topScr.innerHTML = input1 + ' ' + opVal;
+            return;
+        }else{
+            input2 = val; //Calcuate
+            input1 = operate(operator, parseFloat(input1),parseFloat(input2)); //Makes input1 the new value
+            if(input2 == 0){
+                botScr.innerHTML = "Divide by 0 error";
+                clearFlag = true;
+            }else{
+                if(opVal == '='){
+                    topScr.innerHTML += ' ' + input2 + ' =' 
+                    botScr.innerHTML = input1;
+                    input2 = operator = undefined;
+                }else{
+                    topScr.innerHTML = input1 + ' ' + opVal;
+                    botScr.innerHTML = '';
+                    input2 = undefined;
+                    operator = opCode;
+                }
+            }
         }
     }
 }

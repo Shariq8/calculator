@@ -1,17 +1,17 @@
 :root{
     --border: #333;
     --font: #222;
-    --screen: #e6e2d3;
+    --screen: #ffcdb2;
     --btn: #eee;
     --btn-hover: #ddd;
     --btn-active: #ccc;
-    --calc: #d5f4e6;
-    --btnS: #618685;
+    --calc: #264653;
+    --btnS: #2a9d8f;
 }
 
 body{
     font-family:'Courier New', Courier, monospace;
-    background-color:#fefbd8;
+    background-color:var(--screen);
 }
 
 #container{
