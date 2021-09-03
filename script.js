@@ -35,11 +35,34 @@ btns.forEach(button => button.addEventListener('click', function() {
     botScr.innerHTML += button.innerHTML;
 })); //Adds the value to the bottom screen
 
+document.addEventListener('keydown', function(event){
+    if(event.key == "Backspace"){
+        backspace();
+    }else if(!isNaN(event.key)){
+        botScr.innerHTML += event.key;
+    }else if(event.key == '.'){
+        if(botScr.innerHTML.includes('.')) return;
+        botScr.innerHTML += ".";
+    }else{
+        const op = document.querySelectorAll('.op');
+        console.log()
+        op.forEach(operators => {
+            if(event.key == operators.innerHTML){
+                operations(botScr.innerHTML, operators.id, operators.innerHTML);
+            }
+        });
+    }
+})
+
 const del = document.querySelector('#delete'); //Deletes the most recent number
 del.addEventListener('click', function(){
+    backspace()
+});
+
+function backspace(){
     var str = botScr.innerHTML;
     botScr.innerHTML = str.slice(0,-1);
-});
+}
 
 const ac = document.querySelector('#clear'); //Clears the text on screen
 ac.addEventListener('click', function(){
@@ -81,6 +104,7 @@ function operations(val, opCode, opVal){ //Takes the number, the id value and th
         }else{
             input2 = val; //Calcuate
             input1 = operate(operator, parseFloat(input1),parseFloat(input2)); //Makes input1 the new value
+            input1 = parseFloat(input1.toFixed(2));
             if(input2 == 0){
                 botScr.innerHTML = "Divide by 0 error";
                 clearFlag = true;
