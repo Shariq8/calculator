@@ -23,7 +23,7 @@ body{
     width:420px;
     height:500px;
     background-color: var(--calc);
-    border-radius:5px;
+    border-radius:15px;
 }
 
 #screen{
@@ -36,13 +36,19 @@ body{
     background-color: var(--screen);
     display:flex;
     flex-direction:column;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items:flex-end;
 }
 
-#input, #output{
+#input{
+    font-size:20px;
+}
+
+#output{
     font-size:50px;
 }
+
+
 
 #button-grid{
     display:grid;
@@ -55,7 +61,7 @@ body{
     grid-column:span 2;
 }
 
-.btn, .btnS, .op{
+.btn, .btnS, .op, .eq{
     padding:20px;
     border:2px #333 solid;
     border-radius:5px;
