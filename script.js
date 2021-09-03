@@ -40,7 +40,7 @@ del.addEventListener('click', function(){
 const ac = document.querySelector('#clear'); //Clears the text on screen
 ac.addEventListener('click', function(){
     botScr.innerHTML = topScr.innerHTML = "";
-    input1 = undefined;
+    input1 = undefined, input2 = undefined, operator = undefined;
 })
 
 const op = document.querySelectorAll('.op');
@@ -49,7 +49,10 @@ op.forEach(operate => operate.addEventListener('click', function(){
 }))
 
 function operations(val, opCode, opVal){ //Takes the number, the id value and the sign value for scr
-    if(input1 == undefined){ //Means there needs to be input1 and op (initial)
+    if(opVal == '.'){
+        botScr.innerHTML += ".";
+    } 
+    else if(input1 == undefined){ //Means there needs to be input1 and op (initial)
         input1 = val;
         operator = opCode;
         topScr.innerHTML = input1 + ' ' + opVal;
@@ -60,7 +63,7 @@ function operations(val, opCode, opVal){ //Takes the number, the id value and th
         botScr.innerHTML = '';
     }else if(input2 == undefined){ //Means there's an input1 but not input2 
         input2 = val; //Calcuate
-        input1 = operate(operator, parseInt(input1),parseInt(input2)); //Makes input1 the new value
+        input1 = operate(operator, parseFloat(input1),parseFloat(input2)).toFixed(5); //Makes input1 the new value
         if(opVal == '='){
             topScr.innerHTML += ' ' + input2 + ' =' 
             botScr.innerHTML = input1;
