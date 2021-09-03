@@ -1,17 +1,17 @@
 :root{
     --border: #333;
     --font: #222;
-    --screen: #eee;
+    --screen: #e6e2d3;
     --btn: #eee;
     --btn-hover: #ddd;
     --btn-active: #ccc;
-    --calc: #aaa;
-    --btnS: #4F6FF0;
+    --calc: #d5f4e6;
+    --btnS: #618685;
 }
 
 body{
     font-family:'Courier New', Courier, monospace;
-    background-color:linen;
+    background-color:#fefbd8;
 }
 
 #container{
@@ -23,6 +23,7 @@ body{
     width:420px;
     height:500px;
     background-color: var(--calc);
+    border-radius:5px;
 }
 
 #screen{
@@ -30,9 +31,17 @@ body{
     height:120px;
     padding:5px;
     border:1px solid #333;
-    margin:5px;
+    margin:12px;
     border-radius:5px;
     background-color: var(--screen);
+    display:flex;
+    flex-direction:column;
+    justify-content: space-around;
+    align-items:flex-end;
+}
+
+#input, #output{
+    font-size:50px;
 }
 
 #button-grid{
@@ -46,7 +55,7 @@ body{
     grid-column:span 2;
 }
 
-.btn{
+.btn, .btnS, .op{
     padding:20px;
     border:2px #333 solid;
     border-radius:5px;
